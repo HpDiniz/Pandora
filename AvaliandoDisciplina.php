@@ -2,7 +2,7 @@
 
 	session_start();
 	if(!isset($_SESSION["usuario"]))
-		header("index.php");
+		header("index.php"); 
 
 	$host = "localhost";
 	$user = "root";
