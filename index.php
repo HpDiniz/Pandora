@@ -10,6 +10,14 @@
 	$conexao = mysqli_connect($host, $user, $senha, $banco) or die(mysqli_error());
 
 	mysqli_select_db($conexao, $banco);
+	$query= "SELECT * FROM `disciplina`";
+	$result1= mysqli_query($conexao,$query);
+	$faceis = "SELECT * FROM `disciplina` ORDER BY `SomaNotaFacilidade` DESC";
+	$result2= mysqli_query($conexao,$faceis);
+	$uteis = "SELECT * FROM `disciplina` ORDER BY `SomaNotaUtilidade` DESC";
+	$result3= mysqli_query($conexao,$uteis);
+	$recomendadas = "SELECT * FROM `disciplina` ORDER BY `RecomendacaoP` DESC";
+	$result4= mysqli_query($conexao,$recomendadas);
 
 ?>
 
@@ -121,6 +129,18 @@ nav .a{
 	margin-top:0;
 	
 }
+.botao1 {
+    background-color: #999999;
+    border: solid;
+    border-color: #CCCCCC;
+	color:white;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+   
+    font-size: 12px;
+	border-radius: 14px;
+}	
 
 .w3-sidebar a {font-family: "Roboto", sans-serif}
 	body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif; color: black;}
@@ -128,6 +148,15 @@ nav .a{
 		
 	    background-color: #cccccc;
 	}
+	
+	table, th, td {
+    border: 1px solid black;
+}
+th{
+	
+	background-color:#F5F5F5;
+	
+}
 
 </style>
 
@@ -137,11 +166,11 @@ nav .a{
 
 
 
-<div style="width:all;height:249px;border:1px solid #000; background-color:#651296;">
+<div style="width:all;height:270px;border:1px solid #000; background-color:#651296;z-index:150;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
-	<div class="barra">
+	<div class="barra" style="position:absolute; z-index:150;">
 
 		<nav>
 			<?php	
@@ -163,72 +192,81 @@ nav .a{
 		</nav>
 
 	</div>
+	
+	<img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img>
+	
+	<?php 
+		if(!isset($_SESSION["usuario"]) ){
+			?> <a href="login.php"><button class = "botao1" style= "position:relative; left:1200px; top :20px;" > Login </button ></a> <?php
+		} 
+	?>
+		<?php if(isset($_SESSION["usuario"]) ){
+			?>
+			<button class = "botao1" style= "position:relative; left:1200px; top :20px;"><?php echo "Olá {$_SESSION["usuario"]}"; ?></button><?php
+		} 
+	?>
 
 
 </div>
 
 
+
 	<center>
 		<br>
-		<form method="post" action="PesquisaDisciplina.php">
-			<input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" type="submit" name="pesquisa" value="Pesquisar"/>
-			<input class="w3-input w3-right w3-border" style="width:800px;" type="text" placeholder="Pesquisar Disciplina" required type ="text" <ce name="discipl"/>
+		<form method="post" action="PesquisaDisciplina.php" >
+			<input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" style=" position:absolute; right:200px;" type="submit" name="pesquisa" value="Pesquisar"/>
+			<input class="w3-input w3-right w3-border" style=" position:absolute; right:300px; width:800px;" type="text" placeholder="Pesquisar Disciplina" required type ="text" list="datalist1"  name="discipl"/>
+			<datalist id="datalist1">
+				<?php while($row1 = mysqli_fetch_array($result1) ) :; ?>
+				<option value="<?php echo $row1[1]; ?>"> 
+				<?php endwhile; ?>
+				
+				
+			</datalist>
+	
 	</center>
 
 
 
 
-
-
-	<?php
-
-
-		$query = sprintf("SELECT * FROM disciplina"); 
-
-		$dados = mysqli_query($conexao, $query) or die(mysql_error());
-
-		$linha = mysqli_fetch_assoc($dados);
-
-		$total = mysqli_num_rows($dados);
-
-		$facil = $linha['Codigo'];
-		$facil2 = $linha['SomaNotaFacilidade'];
-		$util = $linha['Codigo'];
-		$util2 = $linha['SomaNotaUtilidade'];
-		$recomendada = $linha['Codigo'];
-		$recomendada2 = $linha['RecomendacaoP'];
-
-		if($total > 0){
-
-			do{
-				if($linha['SomaNotaFacilidade'] > $facil2 ){
-					$facil2 = $linha['SomaNotaFacilidade'];
-					$facil = $linha['Codigo'];
-				}
-				if($linha['SomaNotaUtilidade'] > $util2 ){
-					$util2 = $linha['SomaNotaUtilidade'];
-					$util = $linha['Codigo'];
-				}
-				if($linha['RecomendacaoP'] > $recomendada2 ){
-					$recomendada2 = $linha['RecomendacaoP'];
-					$recomendada = $linha['Codigo'];
-				}
-
-			}	
-
-			while($linha = mysqli_fetch_assoc($dados));
-
-
-		}
-
-?>
-
-		<br><h3><center>
-		<br>MAIS FACIL: <?php echo "$facil";?>
-		<br>MAIS UTIL:<?php echo "$util";?>
-		<br>MAIS RECOMENDADA: <?php echo "$recomendada";?>
-	</center></h2><br>
-
+		
+	
+	
+			<table style=" position:absolute; width:100%; z-index=0; top:400px; left:100; width:311;height:202px;border:1px solid #000; background-color:#FFFFFF;">
+				<tr>
+				<th >As mais fáceis</th>
+				</tr>
+				
+				<?php $i=0; while($row2 = mysqli_fetch_array($result2) and $i!=3 ) :; ?>
+				<tr><td><?php echo "$row2[0] - $row2[1]"; $i++; ?> </td></tr>
+				<?php endwhile; ?>
+				
+			</table>
+			
+			<table style=" position:absolute; width:100%; z-index=0; top:400px; left:511; width:311;height:202px;border:1px solid #000; background-color:#FFFFFF;">
+				<tr>
+				<th>As mais úteis</th>
+				</tr>
+				
+				<?php $i2=0; while($row3 = mysqli_fetch_array($result3) and $i2!=3 ) :; ?>
+				<tr><td><?php echo "$row3[0] - $row3[1]"; $i2++; ?> </td></tr>
+				<?php endwhile; ?>
+				
+			</table>
+			
+			<table style=" position:absolute; width:100%; z-index=0; top:400px; left:922; width:311;height:202px;border:1px solid #000; background-color:#FFFFFF;">
+				<tr>
+				<th>As mais recomendadas</th>
+				</tr>
+				
+				<?php $i3=0; while($row4 = mysqli_fetch_array($result4) and $i3!=3 ) :; ?>
+				<tr><td><?php echo "$row4[0] - $row4[1]"; $i3++; ?> </td></tr>
+				<?php endwhile; ?>
+				
+			</table>
+			
+		
+	
 
 </body>
 
