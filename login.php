@@ -121,7 +121,7 @@ nav .a{
 
 
 
-<div style="width:all;height:249px;border:1px solid #000; background-color:#651296;">
+<div style="width:all;height:249px;border:1px solid #000; background-color:#946b4a;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 

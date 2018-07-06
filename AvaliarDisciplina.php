@@ -12,7 +12,7 @@
 ?>
 
 <DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title> </title>
@@ -33,6 +33,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -108,6 +109,30 @@ nav .a{
 
 }
 
+.estrelas input[type=radio]{
+
+	display: none;
+	cursor: pointer;
+
+}
+
+.estrelas label i.fa:before{
+
+	content: '\f005';
+	color: #f5e72c;
+
+	cursor: pointer;
+
+}
+
+.estrelas  input[type=radio]:checked  ~ label i.fa:before{
+
+	color: #999999;
+
+	cursor: pointer;
+
+}
+
 
 #check:checked ~ .barra {
 
@@ -144,7 +169,7 @@ nav .a{
 
 
 
-<div style="width:all;height:249px;border:1px solid #000; background-color:#651296;">
+<div style="width:all;height:249px;border:1px solid #000; background-color:#946b4a;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
@@ -168,7 +193,12 @@ nav .a{
 
 	<?php
 
-		$code = $_POST['codigo'];
+
+		if(!isset($_POST['codigo']))
+			$code = $_SESSION['codigoAtual'];
+		else
+			$code = $_POST['codigo'];
+
 
 		$query = sprintf("SELECT * FROM disciplina WHERE Codigo = '$code'"); 
 
@@ -184,17 +214,48 @@ nav .a{
 					<center><p> Avaliar anônimamente
 					<input type="checkbox" name="anonimo" value="1">
 					<center><p> Classifique o nível de dificuldade: 
-					<input type="radio" name="facilidade" value="1"/> 1
-					<input type="radio" name="facilidade" value="2"/> 2 
-					<input type="radio" name="facilidade" value="3"/> 3 
-					<input type="radio" name="facilidade" value="4"/> 4 
-					<input type="radio" name="facilidade" value="5"/> 5 </p></center>
+					<div class = "estrelas" style="font-size: 1.8em;">
+
+						<input type="radio" id="vazio" name="facilidade" value="" checked>
+						
+						<label for="estrela_um"><i class="fa" ></i></label>
+						<input type="radio" id="estrela_um" name="facilidade" value="1" checked>
+						
+						<label for="estrela_dois"><i class="fa"></i></label>
+						<input type="radio" id="estrela_dois" name="facilidade" value="2">
+						
+						<label for="estrela_tres"><i class="fa"></i></label>
+						<input type="radio" id="estrela_tres" name="facilidade" value="3">
+						
+						<label for="estrela_quatro"><i class="fa"></i></label>
+						<input type="radio" id="estrela_quatro" name="facilidade" value="4">
+						
+						<label for="estrela_cinco"><i class="fa"></i></label>
+						<input type="radio" id="estrela_cinco" name="facilidade" value="5"><br>
+
+					</div></center>
 					<center><p> Classifique o nível de utilidade:
-					<input type="radio" name="utilidade" value="1"/> 1 
-					<input type="radio" name="utilidade" value="2"/> 2 
-					<input type="radio" name="utilidade" value="3"/> 3 
-					<input type="radio" name="utilidade" value="4"/> 4 
-					<input type="radio" name="utilidade" value="5"/> 5 </p></center>
+					<div class = "estrelas" style="font-size: 1.8em;">
+
+						<input type="radio" id="vazio" name="utilidade" value="" checked>
+						
+						<label for="estrela_um"><i class="fa" ></i></label>
+						<input type="radio" id="estrela_um" name="utilidade" value="1" checked>
+						
+						<label for="estrela_dois"><i class="fa"></i></label>
+						<input type="radio" id="estrela_dois" name="utilidade" value="2">
+						
+						<label for="estrela_tres"><i class="fa"></i></label>
+						<input type="radio" id="estrela_tres" name="utilidade" value="3">
+						
+						<label for="estrela_quatro"><i class="fa"></i></label>
+						<input type="radio" id="estrela_quatro" name="utilidade" value="4">
+						
+						<label for="estrela_cinco"><i class="fa"></i></label>
+						<input type="radio" id="estrela_cinco" name="utilidade" value="5"><br>
+
+					</div></center>
+
 					<center><p> Voce recomenda essa disciplina? 
 					<input type="radio" name="recomendacao" value="1"/> Sim
 					<input type="radio" name="recomendacao" value="0"/> Nao </p></center>

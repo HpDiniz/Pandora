@@ -44,7 +44,7 @@
     
 <body>
 
-<div style="width:all;height:270px;border:1px solid #000; background-color:#651296;z-index:150;">
+<div style="width:all;height:270px;border:1px solid #000; background-color:#946b4a;z-index:150;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
@@ -108,7 +108,7 @@
 
 
 		
-	
+		<center>
 	
 			<table style=" position:absolute; width:100%; z-index=0; top:400px; left:100; width:311;height:202px;border:1px solid #000; background-color:#FFFFFF;">
 				<tr>
@@ -143,7 +143,7 @@
 				
 			</table>
 			
-		
+		</center>
 	
 
 </body>
