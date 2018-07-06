@@ -167,9 +167,9 @@ nav .a{
 
 <body>
 
+	<img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img>
 
-
-<div style="width:all;height:249px;border:1px solid #000; background-color:#946b4a;">
+<div style="width:all;height:270px;border:1px solid #000; background-color:#946b4a;z-index:150;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
@@ -177,16 +177,26 @@ nav .a{
 
 		<nav>
 
+			<?php	
+			if(isset($_SESSION["usuario"]) ){	
+				echo "Boas Vindas {$_SESSION["usuario"]}";
+			}
+			if(!isset($_SESSION["usuario"])){ ?>
+			<a href="login.php"> <div class="link">Fazer Login </div> </a><?php
+			} ?>
 			<a href="index.php"> <div class="link">Inicio </div> </a>
 			<a href=""> <div class="link">Perfil </div> </a>
 			<a href=""> <div class="link">Buscar Usuário </div> </a>
 			<a href=""> <div class="link">Sugerir Disciplina </div> </a>
-			<a href="logout.php"> <div class="link">Fazer Logout </div> </a>
+			<?php 
+			if(isset($_SESSION["usuario"]) ){ ?>
+			<a href="logout.php"> <div class="link">Fazer Logout </div> </a><?php
+			} ?>
 
 		</nav>
 
 	</div>
-
+	<a href="index.php"> <img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img> </a>
 
 </div>
 
@@ -239,20 +249,20 @@ nav .a{
 
 						<input type="radio" id="vazio" name="utilidade" value="" checked>
 						
-						<label for="estrela_um"><i class="fa" ></i></label>
-						<input type="radio" id="estrela_um" name="utilidade" value="1" checked>
+						<label for="estrela_sum"><i class="fa" ></i></label>
+						<input type="radio" id="estrela_sum" name="utilidade" value="1" checked>
 						
-						<label for="estrela_dois"><i class="fa"></i></label>
-						<input type="radio" id="estrela_dois" name="utilidade" value="2">
+						<label for="estrela_sdois"><i class="fa"></i></label>
+						<input type="radio" id="estrela_sdois" name="utilidade" value="2">
 						
-						<label for="estrela_tres"><i class="fa"></i></label>
-						<input type="radio" id="estrela_tres" name="utilidade" value="3">
+						<label for="estrela_stres"><i class="fa"></i></label>
+						<input type="radio" id="estrela_stres" name="utilidade" value="3">
 						
-						<label for="estrela_quatro"><i class="fa"></i></label>
-						<input type="radio" id="estrela_quatro" name="utilidade" value="4">
+						<label for="estrela_squatro"><i class="fa"></i></label>
+						<input type="radio" id="estrela_squatro" name="utilidade" value="4">
 						
-						<label for="estrela_cinco"><i class="fa"></i></label>
-						<input type="radio" id="estrela_cinco" name="utilidade" value="5"><br>
+						<label for="estrela_scinco"><i class="fa"></i></label>
+						<input type="radio" id="estrela_scinco" name="utilidade" value="5"><br>
 
 					</div></center>
 

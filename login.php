@@ -119,9 +119,9 @@ nav .a{
 
 <body>
 
+	<img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img>
 
-
-<div style="width:all;height:249px;border:1px solid #000; background-color:#946b4a;">
+<div style="width:all;height:270px;border:1px solid #000; background-color:#946b4a;z-index:150;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
@@ -129,16 +129,26 @@ nav .a{
 
 		<nav>
 
+			<?php	
+			if(isset($_SESSION["usuario"]) ){	
+				echo "Boas Vindas {$_SESSION["usuario"]}";
+			}
+			if(!isset($_SESSION["usuario"])){ ?>
+			<a href="login.php"> <div class="link">Fazer Login </div> </a><?php
+			} ?>
 			<a href="index.php"> <div class="link">Inicio </div> </a>
 			<a href=""> <div class="link">Perfil </div> </a>
 			<a href=""> <div class="link">Buscar Usuário </div> </a>
 			<a href=""> <div class="link">Sugerir Disciplina </div> </a>
-			<a href="logout.php"> <div class="link">Fazer Logout </div> </a>
+			<?php 
+			if(isset($_SESSION["usuario"]) ){ ?>
+			<a href="logout.php"> <div class="link">Fazer Logout </div> </a><?php
+			} ?>
 
 		</nav>
 
 	</div>
-
+	<a href="index.php"> <img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img> </a>
 
 </div>
 

@@ -44,13 +44,16 @@
     
 <body>
 
+	<img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img>
+
 <div style="width:all;height:270px;border:1px solid #000; background-color:#946b4a;z-index:150;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
-	<div class="barra" style="position:absolute; z-index:150;">
+	<div class="barra">
 
 		<nav>
+
 			<?php	
 			if(isset($_SESSION["usuario"]) ){	
 				echo "Boas Vindas {$_SESSION["usuario"]}";
@@ -70,10 +73,9 @@
 		</nav>
 
 	</div>
-	
-	<img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img>
-	
-	<?php 
+	<a href="index.php"> <img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img> </a>
+
+		<?php 
 		if(!isset($_SESSION["usuario"]) ){
 			?> <a href="login.php"><button class = "botao1" style= "position:relative; left:1200px; top :20px;" > Login </button ></a> <?php
 		} 
@@ -86,6 +88,9 @@
 
 
 </div>
+	
+	
+
 
 
 
@@ -105,10 +110,6 @@
 	</center>
 
 
-
-
-		
-		<center>
 	
 			<table style=" position:absolute; width:100%; z-index=0; top:400px; left:100; width:311;height:202px;border:1px solid #000; background-color:#FFFFFF;">
 				<tr>
@@ -142,9 +143,6 @@
 				<?php endwhile; ?>
 				
 			</table>
-			
-		</center>
-	
 
 </body>
 
