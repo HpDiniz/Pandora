@@ -134,6 +134,7 @@ nav .a{
 		<nav>
 
 			<?php	
+
 			if(isset($_SESSION["usuario"]) ){	
 				echo "Boas Vindas {$_SESSION["usuario"]}";
 			}
@@ -155,15 +156,14 @@ nav .a{
 	<a href="index.php"> <img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img> </a>
 
 </div>
-
 <br>
 <center>
 <div style=" margin:auto; background-color:#FFFFFF; width: 300px; border: solid; border-radius: 14px;">
 	<center>
 			<br><br>
-			<input type= "image" class="facebook" onclick="logIn()" width="165" height="42" type="submit" value=""" src="login_1.png"/>
-			<br>
-			<input type="image" width="170" height="50" type="submit" value="Fazer Login com Google"" src="google.png"/>
+			<input type= "image" class="facebook" onclick="logIn()" width="165" height="42" value=""" src="login_1.png"/>
+			<br><form method="post" action="autentica.php" >
+			<input type="image" width="170" height="50" type="submit" value="Fazer Login com Google"" src="google.png"/></form>
 			<br><br><br>
 	</center>
 
