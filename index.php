@@ -38,6 +38,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!--bootstrap4-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 
 
@@ -109,41 +114,80 @@
 	
 	</center>
 
+    <div class = "tresTab">
+    <div class = "tab1">
+        <div class="container"> <!--1111-->
+        <div class="row">
+            <div class="col-x5-1"
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        As mais fáceis
+                    </a>
+                    
+                    <?php
+                        $i=0;
+                        while($row2 = mysqli_fetch_array($result2) and $i<3){
+                             ?>
+                            <a href="#" class="list-group-item list-group-item-action">
+                            <?php echo "$row2[0] - $row2[1]"; $i++; }?> </a>
+                
+            
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class = "tab2">
+    <div class="container"><!--222-->
+        <div class="row">
+            <div class="col-x5-3"
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        As mais úteis
+                    </a>
+                    
+                    <?php
+                        $i2=0;
+                        while($row3 = mysqli_fetch_array($result3) and $i2 < 3){
+                             ?>
+                            <a href="#" class="list-group-item list-group-item-action">
+                            <?php echo "$row3[0] - $row3[1]";; $i2++; }?> </a>
+                
+            
+                </div>
+            </div>
+    </div>
+    </div>
 
-	
-			<table style=" position:absolute; width:100%; z-index=0; top:400px; left:100; width:311;height:202px;border:1px solid #000; background-color:#FFFFFF;">
-				<tr>
-				<th >As mais fáceis</th>
-				</tr>
-				
-				<?php $i=0; while($row2 = mysqli_fetch_array($result2) and $i!=3 ) :; ?>
-				<tr><td><?php echo "$row2[0] - $row2[1]"; $i++; ?> </td></tr>
-				<?php endwhile; ?>
-				
-			</table>
-			
-			<table style=" position:absolute; width:100%; z-index=0; top:400px; left:511; width:311;height:202px;border:1px solid #000; background-color:#FFFFFF;">
-				<tr>
-				<th>As mais úteis</th>
-				</tr>
-				
-				<?php $i2=0; while($row3 = mysqli_fetch_array($result3) and $i2!=3 ) :; ?>
-				<tr><td><?php echo "$row3[0] - $row3[1]"; $i2++; ?> </td></tr>
-				<?php endwhile; ?>
-				
-			</table>
-			
-			<table style=" position:absolute; width:100%; z-index=0; top:400px; left:922; width:311;height:202px;border:1px solid #000; background-color:#FFFFFF;">
-				<tr>
-				<th>As mais recomendadas</th>
-				</tr>
-				
-				<?php $i3=0; while($row4 = mysqli_fetch_array($result4) and $i3!=3 ) :; ?>
-				<tr><td><?php echo "$row4[0] - $row4[1]"; $i3++; ?> </td></tr>
-				<?php endwhile; ?>
-				
-			</table>
-
+    <div class = "tab3">
+    <div class="container"><!--333-->
+        <div class="row">
+            <div class="col-x5-3"
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        As mais recomendadas
+                    </a>
+                    
+                    <?php
+                        $i3=0;
+                        while($row4 = mysqli_fetch_array($result4) and $i3 < 3){
+                             ?>
+                            <a href="#" class="list-group-item list-group-item-action">
+                            <?php echo "$row4[0] - $row4[1]"; $i3++; }?> </a>
+                
+            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+        
+    <!-- Optional JavaScript (Bootstrap4) -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

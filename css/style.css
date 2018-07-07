@@ -65,6 +65,19 @@ nav .a{
 	margin-top:200px;
 }
 
+.tudo{
+    
+}
+
+.tab1 { float: left; width: 30%; }
+.tab2 { float: left; width: 60%; }
+.tab3 { float: left; width: 80%; }
+
+
+
+
+
+
 .link:hover{
 	background-color: #050542;
 
