@@ -117,21 +117,21 @@
     <div class = "tresTab">
     <div class = "tab1">
         <div class="container"> <!--1111-->
-        <div class="row">
-            <div class="col-x5-1"
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active">
-                        As mais fáceis
-                    </a>
-                    
-                    <?php
-                        $i=0;
-                        while($row2 = mysqli_fetch_array($result2) and $i<3){
-                             ?>
-                            <a href="#" class="list-group-item list-group-item-action">
-                            <?php echo "$row2[0] - $row2[1]"; $i++; }?> </a>
-                
-            
+            <div class="row">
+                <div class="col-x5-1">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active">
+                            As mais fáceis
+                        </a>
+
+                        <?php
+                            $i=0;
+                            while($row2 = mysqli_fetch_array($result2) and $i<3){
+                                 ?>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                <?php echo "$row2[0] - $row2[1]"; $i++; }?> </a>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,7 +140,7 @@
     <div class = "tab2">
     <div class="container"><!--222-->
         <div class="row">
-            <div class="col-x5-3"
+            <div class="col-x5-3">
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">
                         As mais úteis
@@ -154,15 +154,16 @@
                             <?php echo "$row3[0] - $row3[1]";; $i2++; }?> </a>
                 
             
+                    </div>
                 </div>
             </div>
-    </div>
+        </div>
     </div>
 
     <div class = "tab3">
     <div class="container"><!--333-->
         <div class="row">
-            <div class="col-x5-3"
+            <div class="col-x5-3">
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">
                         As mais recomendadas
@@ -176,6 +177,7 @@
                             <?php echo "$row4[0] - $row4[1]"; $i3++; }?> </a>
                 
             
+                    </div>
                 </div>
             </div>
         </div>

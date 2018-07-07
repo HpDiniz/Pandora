@@ -69,9 +69,19 @@ nav .a{
     
 }
 
-.tab1 { float: left; width: 30%; }
-.tab2 { float: left; width: 60%; }
-.tab3 { float: left; width: 80%; }
+.tab1 {
+    
+    width:100%; ; 
+    margin-left: 20%;
+}
+.tab2 {
+    width:100%; 
+    margin-left: 40%;
+}
+.tab3 { 
+    width:100%; 
+    margin-left: 60%;
+}
 
 
 
