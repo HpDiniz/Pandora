@@ -50,7 +50,7 @@
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
-	<div class="barra">
+	<div class="barra" style="position:absolute; z-index:150;">
 
 		<nav>
 

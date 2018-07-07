@@ -152,16 +152,20 @@ nav .a{
 
 </div>
 
-
-
+<br>
+<center>
+<div style=" margin:auto; background-color:#FFFFFF; width: 300px; border: solid; border-radius: 14px;">
 	<center>
-		<br>
+		
 		<form method="post" action="autentica.php">
+			
+			<input type= "image" class="facebook" width="200" height="100" type="submit" value=""" src="login_1.png"/>
 			<br>
-			<input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" type="submit" value="Fazer Login com Facebook""/>
-			<input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" type="submit" value="Fazer Login com Google""/>
+			<input type="image" width="170" height="50" type="submit" value="Fazer Login com Google"" src="google.png"/>
+			<br>
+			<br>
 	</center>
-
+</div></center>
 
 </body>
 
