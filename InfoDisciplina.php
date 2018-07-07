@@ -135,7 +135,7 @@ nav .a{
 
 	<img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img>
 
-<div style="width:all;height:270px;border:1px solid #000; background-color:#946b4a;z-index:150;">
+<div style="width:all;height:285px;border:1px solid #000; background-color:#946b4a;z-index:150;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
@@ -165,6 +165,7 @@ nav .a{
 	<a href="index.php"> <img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img> </a>
 
 </div>
+
 
 
 	<?php
