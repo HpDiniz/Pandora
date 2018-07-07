@@ -64,15 +64,16 @@ nav .a{
 	opacity:0;
 	margin-top:200px;
 }
-
-.tudo{
+/*
+.tabelas{
     
 }
-
-.tab1 { float: left; width: 30%; }
-.tab2 { float: left; width: 60%; }
-.tab3 { float: left; width: 80%; }
-
+*/
+.login{
+    position:absolute;
+    margin-top:3%;    
+    margin-left:90%;
+}
 
 
 

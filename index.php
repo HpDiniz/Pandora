@@ -47,6 +47,8 @@
 
 
     
+    
+    
 <body>
 
 	<img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img>
@@ -78,69 +80,76 @@
 		</nav>
 
 	</div>
+    
+    
+    
 	<a href="index.php"> <img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img> </a>
 
 		<?php 
 		if(!isset($_SESSION["usuario"]) ){
-			?> <a href="login.php"><button class = "botao1" style= "position:relative; left:1200px; top :20px;" > Login </button ></a> <?php
+		?>
+        <div class="login">
+            <a href="login.php">
+            <button class = "botao1 "> Login </button >
+            </a> 
+        </div>
+        <?php
 		} 
 	?>
 		<?php if(isset($_SESSION["usuario"]) ){
-			?>
-			<button class = "botao1" style= "position:relative; left:1200px; top :20px;"><?php echo "Olá {$_SESSION["usuario"]}"; ?></button><?php
-		} 
-	?>
+        ?>
+        
+        <button class = "botao1" style= "position:relative; left:1200px; top :20px;">
+        <?php 
+        echo "Olá {$_SESSION["usuario"]}"; ?>
+        </button>
+        <?php
+        } 
+	   ?>
 
 
 </div>
 	
 	
+    <br>
+    <br>
+    <br>
+    
+    
 
 
-
-
-	<center>
-		<br>
-		<form method="post" action="PesquisaDisciplina.php" >
-			<input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" style=" position:absolute; right:200px;" type="submit" name="pesquisa" value="Pesquisar"/>
-			<input class="w3-input w3-right w3-border" style=" position:absolute; right:300px; width:800px;" type="text" placeholder="Pesquisar Disciplina" required type ="text" list="datalist1"  name="discipl"/>
-			<datalist id="datalist1">
-				<?php while($row1 = mysqli_fetch_array($result1) ) :; ?>
-				<option value="<?php echo $row1[1]; ?>"> 
-				<?php endwhile; ?>
-				
-				
-			</datalist>
-	
-	</center>
-
-    <div class = "tresTab">
-    <div class = "tab1">
-        <div class="container"> <!--1111-->
+    <div class= "container">
         <div class="row">
-            <div class="col-x5-1"
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active">
-                        As mais fáceis
-                    </a>
-                    
-                    <?php
-                        $i=0;
-                        while($row2 = mysqli_fetch_array($result2) and $i<3){
-                             ?>
-                            <a href="#" class="list-group-item list-group-item-action">
-                            <?php echo "$row2[0] - $row2[1]"; $i++; }?> </a>
-                
-            
-                </div>
+            <div class="col-sm-12">
+
+            <form method="post" action="PesquisaDisciplina.php" >
+                <input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" style=" position:absolute; right:200px;" type="submit" name="pesquisa" value="Pesquisar"/>
+                <input class="w3-input w3-right w3-border" style=" position:absolute; right:300px; width:800px;" type="text" placeholder="Pesquisar Disciplina" required type ="text" list="datalist1"  name="discipl"/>
+                <datalist id="datalist1">
+                    <?php while($row1 = mysqli_fetch_array($result1) ) :; ?>
+                    <option value="<?php echo $row1[1]; ?>"> 
+                    <?php endwhile; ?>
+
+
+                </datalist>
+
+                </form>
             </div>
         </div>
     </div>
     
-    <div class = "tab2">
-    <div class="container"><!--222-->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+
+    
+    <div class = "tabelas">
+    <div class="container">
         <div class="row">
-            <div class="col-x5-3"
+            <div class="col-sm-4"> <!--1111-->
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">
                         As mais úteis
@@ -152,17 +161,10 @@
                              ?>
                             <a href="#" class="list-group-item list-group-item-action">
                             <?php echo "$row3[0] - $row3[1]";; $i2++; }?> </a>
-                
-            
                 </div>
             </div>
-    </div>
-    </div>
-
-    <div class = "tab3">
-    <div class="container"><!--333-->
-        <div class="row">
-            <div class="col-x5-3"
+            
+            <div class="col-sm-4"><!--222-->
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">
                         As mais recomendadas
@@ -173,14 +175,30 @@
                         while($row4 = mysqli_fetch_array($result4) and $i3 < 3){
                              ?>
                             <a href="#" class="list-group-item list-group-item-action">
-                            <?php echo "$row4[0] - $row4[1]"; $i3++; }?> </a>
-                
-            
+                            <?php echo "$row4[0] - $row4[1]"; $i3++; }?> </a>            
                 </div>
             </div>
+            
+            <div class="col-sm-4"> <!--3333-->
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active">
+                            As mais fáceis
+                        </a>
+
+                        <?php
+                            $i=0;
+                            while($row2 = mysqli_fetch_array($result2) and $i<3){
+                                 ?>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                <?php echo "$row2[0] - $row2[1]"; $i++; }?> </a>
+
+                </div>
+            </div>
+            
         </div>
     </div>
-</div>
+    </div>
+
         
         
     <!-- Optional JavaScript (Bootstrap4) -->
