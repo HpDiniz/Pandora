@@ -9,6 +9,8 @@
 
 	mysqli_select_db($conexao, $banco);
 
+
+
 ?>
 
 <DOCTYPE html>
@@ -218,6 +220,15 @@ nav .a{
 
 		$total = mysqli_num_rows($dados);
 
+		$dp = $linha['Departamento'];
+
+
+		$query2 = sprintf("SELECT * FROM professores WHERE dep = '$dp' "); 
+		$result2= mysqli_query($conexao,$query2) or die(mysql_error());
+		$linha2 = mysqli_fetch_assoc($result2);
+		$total2 = mysqli_num_rows($result2);
+
+
 ?>
 				<br>
 				<form method="post" action="AvaliandoDisciplina.php">
@@ -271,10 +282,18 @@ nav .a{
 					<input type="radio" name="recomendacao" value="0"/> Nao </p></center>
 
 					<center><p> Fez a disciplina com qual professor?
-					<input type="text" name="professor">
 
-					<center><p> Deixe um comentário! (Opicional)
-					<input type="text" name="comentario" size="100" /> 
+					<select name="professor">
+					<?php
+					if($total2>0){
+						do {?>
+						<option value="<?php echo $linha2['docente']?>"><?php echo "{$linha2['docente']}";?>
+					<?php
+					}while($linha2 = mysqli_fetch_assoc($result2)); }?>
+					</select>
+
+					<center><p> Deixe um comentário! (Opicional) <br>
+					<textarea name="comentario" rows="9" cols="40"></textarea>
 					<input type="hidden" name="codigo" value="<?php echo $code?>">
 					<br>
 					<input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" style="width:200px;" type="submit" value="Enviar">

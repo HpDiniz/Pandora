@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 02-Jul-2018 às 01:06
+-- Generation Time: 07-Jul-2018 às 23:42
 -- Versão do servidor: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -25,6 +25,42 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `departamento`
+--
+
+DROP TABLE IF EXISTS `departamento`;
+CREATE TABLE IF NOT EXISTS `departamento` (
+  `Departamento` varchar(10) NOT NULL,
+  `Centro` varchar(10) NOT NULL,
+  PRIMARY KEY (`Departamento`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `departamento`
+--
+
+INSERT INTO `departamento` (`Departamento`, `Centro`) VALUES
+('DAU', 'CCE'),
+('DEA', 'CCA'),
+('DEC', 'CCE'),
+('DEF', 'CCA'),
+('DEL', 'CCE'),
+('DEP', 'CCE'),
+('DEQ', 'CCE'),
+('DER', 'CCA'),
+('DET', 'CCE'),
+('DFP', 'CCA'),
+('DFT', 'CCA'),
+('DMA', 'CCE'),
+('DPF', 'CCE'),
+('DPI', 'CCE'),
+('DPS', 'CCA'),
+('DTA', 'CCE'),
+('DZO', 'CCA');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `disciplina`
 --
 
@@ -32,25 +68,29 @@ DROP TABLE IF EXISTS `disciplina`;
 CREATE TABLE IF NOT EXISTS `disciplina` (
   `Codigo` varchar(10) NOT NULL,
   `Nome` varchar(100) NOT NULL,
+  `Departamento` varchar(10) NOT NULL,
   `RecomendacaoP` int(11) NOT NULL,
   `RecomendacaoN` int(11) NOT NULL,
   `TotalDeAvaliacoes` int(11) NOT NULL,
   `SomaNotaUtilidade` int(11) NOT NULL,
   `SomaNotaFacilidade` int(11) NOT NULL,
-  PRIMARY KEY (`Codigo`)
+  PRIMARY KEY (`Codigo`),
+  KEY `dep_fk` (`Departamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `disciplina`
 --
 
-INSERT INTO `disciplina` (`Codigo`, `Nome`, `RecomendacaoP`, `RecomendacaoN`, `TotalDeAvaliacoes`, `SomaNotaUtilidade`, `SomaNotaFacilidade`) VALUES
-('EST106', 'Estatistica 1', 1, 0, 1, 1, 1),
-('FIS201', 'Fisica 1', 0, 0, 0, 0, 0),
-('FIS203', 'Fisica 3', 9, 0, 9, 2, 2),
-('INF220', 'Banco de Dados', 1, 0, 1, 1, 1),
-('INF280', 'Pesquisa Operacional', 0, 0, 0, 0, 0),
-('MAT140', 'Calculo 1', 8, 0, 8, 7, 7);
+INSERT INTO `disciplina` (`Codigo`, `Nome`, `Departamento`, `RecomendacaoP`, `RecomendacaoN`, `TotalDeAvaliacoes`, `SomaNotaUtilidade`, `SomaNotaFacilidade`) VALUES
+('INF213', 'Estruturas de Dados', 'DPI', 2, 0, 2, 6, 6),
+('INF220', 'Banco de Dados 1', 'DPI', 0, 0, 0, 0, 0),
+('INF280', 'Pesquisa Operacional 1', 'DPI', 0, 0, 0, 0, 0),
+('INF322', 'Banco de Dados 2', 'DPI', 0, 0, 0, 0, 0),
+('INF452', 'Redes de Computadores', 'DPI', 0, 0, 0, 0, 0),
+('MAT140', 'Calculo 1', 'DMA', 0, 0, 0, 0, 0),
+('MAT147', 'Calculo 2', 'DMA', 0, 0, 0, 0, 0),
+('MAT241', 'Calculo 3', 'DMA', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -81,15 +121,16 @@ CREATE TABLE IF NOT EXISTS `pessoa` (
   `DataCadastro` date NOT NULL,
   `idpessoa` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idpessoa`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `pessoa`
 --
 
 INSERT INTO `pessoa` (`Nome`, `Curso`, `DataCadastro`, `idpessoa`) VALUES
-('Henrique', 'Ciencia da Computacao', '2018-07-01', 1),
-('Lucas ', 'Ciencia da Computacao', '2018-07-01', 2);
+('Anonimo', '', '2018-07-01', 1),
+('Lucas ', 'Ciencia da Computacao', '2018-07-01', 2),
+('Henrique', 'Ciencia da Computacao', '2018-07-01', 3);
 
 -- --------------------------------------------------------
 
@@ -100,8 +141,8 @@ INSERT INTO `pessoa` (`Nome`, `Curso`, `DataCadastro`, `idpessoa`) VALUES
 DROP TABLE IF EXISTS `pessoaavaliadisciplina`;
 CREATE TABLE IF NOT EXISTS `pessoaavaliadisciplina` (
   `IdAvaliacao` int(11) NOT NULL AUTO_INCREMENT,
-  `Utilidade` tinyint(1) NOT NULL,
-  `Facilidade` tinyint(1) NOT NULL,
+  `Utilidade` int(11) NOT NULL,
+  `Facilidade` int(11) NOT NULL,
   `Recomenda` tinyint(1) NOT NULL,
   `Professor` varchar(100) NOT NULL,
   `Comentario` varchar(255) NOT NULL,
@@ -111,27 +152,15 @@ CREATE TABLE IF NOT EXISTS `pessoaavaliadisciplina` (
   PRIMARY KEY (`IdAvaliacao`),
   KEY `usuario_fk` (`IdPessoa`),
   KEY `discplinafk` (`CodigoDisc`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `pessoaavaliadisciplina`
 --
 
 INSERT INTO `pessoaavaliadisciplina` (`IdAvaliacao`, `Utilidade`, `Facilidade`, `Recomenda`, `Professor`, `Comentario`, `ReacoesNegativas`, `CodigoDisc`, `IdPessoa`) VALUES
-(1, 1, 1, 1, 'Joelson', 'Amei', 0, 'MAT140', 1),
-(4, 1, 1, 1, 'Braz', 'A disciplina foi muito boa, o professor entÃ£o nem se fala!', 0, 'MAT140', 1),
-(5, 1, 0, 1, 'Fernanda', 'Foi uma porra', 0, 'MAT140', 1),
-(6, 1, 1, 1, 'Lilian', 'Gostei bastante', 0, 'MAT140', 1),
-(7, 1, 1, 1, 'Lilian', 'Nao gostei', 0, 'MAT140', 1),
-(8, 1, 1, 1, 'Alvaro', 'Foi muito facil', 0, 'FIS203', 1),
-(9, 1, 1, 1, 'Alvaro', 'Mole demais', 0, 'FIS203', 1),
-(10, 0, 0, 1, 'Alvaro', 'Ridiculo', 0, 'FIS203', 1),
-(11, 1, 1, 1, 'Camila', 'Eu gostei bastante, a aula era muito boa, e a disciplina foi bem legal tambem!', 0, 'EST106', 1),
-(12, 0, 0, 1, 'Renato', 'Achei excelente', 0, 'FIS203', 1),
-(13, 0, 0, 1, 'Pedro', 'Professor mitou', 0, 'FIS203', 1),
-(14, 0, 0, 1, 'Leopoldo', 'Gostei bastante dessa materia', 0, 'FIS203', 1),
-(15, 0, 0, 1, 'Alvaro', 'Aprendi tudo sobre a quarta dimensao', 0, 'FIS203', 1),
-(16, 0, 0, 1, 'Carlos Osorio', 'Foi incrivel demais', 0, 'FIS203', 1);
+(51, 4, 3, 1, '', '', 0, 'INF213', 1),
+(52, 5, 3, 1, 'Marcus Vinicius', '', 0, 'INF213', 2);
 
 -- --------------------------------------------------------
 
@@ -150,9 +179,90 @@ CREATE TABLE IF NOT EXISTS `pessoareageavaliacao` (
   KEY `avaliacaofk` (`IDavaliacaoReagida`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `professores`
+--
+
+DROP TABLE IF EXISTS `professores`;
+CREATE TABLE IF NOT EXISTS `professores` (
+  `docente` varchar(100) NOT NULL,
+  `dep` varchar(10) NOT NULL,
+  PRIMARY KEY (`docente`),
+  KEY `dep_fk` (`dep`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `professores`
+--
+
+INSERT INTO `professores` (`docente`, `dep`) VALUES
+('Abílio Lemos', 'DMA'),
+('Ady Cambraia', 'DMA'),
+('Alexandre Miranda', 'DMA'),
+('Allan de Oliveira', 'DMA'),
+('Amarisio da Silva', 'DMA'),
+('Anderson Luis', 'DMA'),
+('Anderson Tiago', 'DMA'),
+('Andre Junqueira', 'DMA'),
+('Ariane Piovezan', 'DMA'),
+('Bhavinkumar Kishor', 'DMA'),
+('Braz Mouro', 'DMA'),
+('Bulmer Mejia', 'DMA'),
+('Caroline Mendes', 'DMA'),
+('Catarina Mendes', 'DMA'),
+('Cristiane Botelho', 'DMA'),
+('Diogo da Silva', 'DMA'),
+('Edir Junior', 'DMA'),
+('Edson José', 'DMA'),
+('Enoch Humberto', 'DMA'),
+('Fernanda Moura', 'DMA'),
+('Gláucia Aparecida', 'DMA'),
+('Jéssyca Lange', 'DMA'),
+('Lana Mara', 'DMA'),
+('Lia Feital', 'DMA'),
+('Lilian Neves', 'DMA'),
+('Luciana Maria', 'DMA'),
+('Margareth da Silva', 'DMA'),
+('Marinês Guerreiro', 'DMA'),
+('Marli Duffles', 'DMA'),
+('Mercio Botelho Faria', 'DMA'),
+('Oscar Alexander', 'DMA'),
+('Pouya Mehdipour', 'DMA'),
+('Rogério Carvalho', 'DMA'),
+('Rosane Soares', 'DMA'),
+('Sandro Vieira', 'DMA'),
+('Sonia Fernandes', 'DMA'),
+('Walter Vargas', 'DMA'),
+('Alcione de Paiva', 'DPI'),
+('Andre Gustavo', 'DPI'),
+('Carlos de Castro', 'DPI'),
+('Giovanni Ventorim', 'DPI'),
+('Jose Elias Arroyo', 'DPI'),
+('Jugurta Lisboa', 'DPI'),
+('Leacir Nogueira', 'DPI'),
+('Levi Henrique', 'DPI'),
+('Lucas Francisco', 'DPI'),
+('Luiz Carlos', 'DPI'),
+('Marcos Henrique', 'DPI'),
+('Marcus Vinicius', 'DPI'),
+('Mauro Nacif', 'DPI'),
+('Ricardo dos Santos', 'DPI'),
+('Sabrina de Azevedo', 'DPI'),
+('Salles Viana', 'DPI'),
+('Vitor Barbosa', 'DPI'),
+('Vladimir Oliveira', 'DPI');
+
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Limitadores para a tabela `disciplina`
+--
+ALTER TABLE `disciplina`
+  ADD CONSTRAINT `dep_fk` FOREIGN KEY (`Departamento`) REFERENCES `departamento` (`Departamento`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `disciplinasugerida`
@@ -173,6 +283,12 @@ ALTER TABLE `pessoaavaliadisciplina`
 ALTER TABLE `pessoareageavaliacao`
   ADD CONSTRAINT `IDavaliacaoReagida` FOREIGN KEY (`IDavaliacaoReagida`) REFERENCES `pessoaavaliadisciplina` (`IdAvaliacao`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `idpessoareagiu` FOREIGN KEY (`idpessoareagiu`) REFERENCES `pessoa` (`idpessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `professores`
+--
+ALTER TABLE `professores`
+  ADD CONSTRAINT `dep` FOREIGN KEY (`dep`) REFERENCES `departamento` (`Departamento`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
