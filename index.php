@@ -80,18 +80,32 @@
 		</nav>
 
 	</div>
+    
+    
+    
 	<a href="index.php"> <img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img> </a>
 
 		<?php 
 		if(!isset($_SESSION["usuario"]) ){
-			?> <a href="login.php"><button class = "botao1" style= "position:relative; left:1200px; top :20px;" > Login </button ></a> <?php
+		?>
+        <div class="login">
+            <a href="login.php">
+            <button class = "botao1 "> Login </button >
+            </a> 
+        </div>
+        <?php
 		} 
 	?>
 		<?php if(isset($_SESSION["usuario"]) ){
-			?>
-			<button class = "botao1" style= "position:relative; left:1200px; top :20px;"><?php echo "Olá {$_SESSION["usuario"]}"; ?></button><?php
-		} 
-	?>
+        ?>
+        
+        <button class = "botao1" style= "position:relative; left:1200px; top :20px;">
+        <?php 
+        echo "Olá {$_SESSION["usuario"]}"; ?>
+        </button>
+        <?php
+        } 
+	   ?>
 
 
 </div>
