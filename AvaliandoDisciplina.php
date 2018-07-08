@@ -18,8 +18,8 @@
 	?>
 
 
-<!DOCTYPE html>
-<html>
+<DOCTYPE html>
+<html lang="pt-br">
 <head>
 	<title></title>
 		<script type="text/javascript">

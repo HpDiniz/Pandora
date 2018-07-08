@@ -1,8 +1,6 @@
 <?php
 
 	session_start();
-	if(isset($_SESSION["usuario"]) && isset($_POST['codigo']))
-		$_SESSION["codigoAtual"] = $_POST['codigo'];
 
 	$host = "localhost";
 	$user = "root";
@@ -12,6 +10,7 @@
 	$conexao = mysqli_connect($host, $user, $senha, $banco) or die(mysqli_error());
 
 	mysqli_select_db($conexao, $banco);
+
 	if(isset($_POST['discipl'])){
 
 		$DisciplinaBuscada = $_POST['discipl'];
@@ -32,10 +31,11 @@
 	$query = "SELECT `codigo`,`RecomendacaoP`,`RecomendacaoN` FROM `disciplina` WHERE `codigo` = '".$code."' ";
 	$res = mysqli_query($conexao,$query);
 
+
 ?>
 
 <DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title> </title>
@@ -240,12 +240,6 @@ $row=$res->fetch_assoc();
 	
 	<?php
 
-		if(!isset($_POST['codigo']))
-			$code = $_SESSION['codigoAtual'];
-		else
-			$code = $_POST['codigo'];
-
-
 		$query = sprintf("SELECT * FROM disciplina WHERE Codigo = '$code'");
 
 		$dados = mysqli_query($conexao, $query) or die(mysql_error());
@@ -256,8 +250,7 @@ $row=$res->fetch_assoc();
 
 
 		if($total < 1){
-			echo "Erro fatal, disciplina não se encontra no banco de dados";
-			header("index.php");
+			header("Location: index.php");
 		}
 
 		?> <center><div class="barra_de_cima" style="background-color:#D9D9D9; margin-top:0%; width:all; height:10%; font-size:2vw;  border:1px solid #404040;""><h2 style="margin:auto;"> <?php
