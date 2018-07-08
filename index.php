@@ -99,10 +99,12 @@
 		<?php if(isset($_SESSION["usuario"]) ){
         ?>
         
-        <button class = "botao1" style= "position:relative; left:1200px; top :20px;">
+       <div class="login">
+        <button class = "botao1" >
         <?php 
         echo "Olá {$_SESSION["usuario"]}"; ?>
         </button>
+		</div>
         <?php
         } 
 	   ?>
