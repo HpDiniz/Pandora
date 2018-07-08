@@ -153,7 +153,13 @@ td{
 	
 }
 
-
+button {     
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;        
+}
 
 
 
@@ -355,7 +361,7 @@ $row=$res->fetch_assoc();
 				<td> <?php if($linha2['Recomenda'] == 1){ echo "SIM";} else { echo "NAO"; }?> </td> 
 				<td> <?php echo "{$linha2['Professor']}";?> </td> 
 				<td> <?php if($linha2['Comentario'] == NULL){ echo "Esse avaliador nao deixou comentarios";} else { echo "{$linha2['Comentario']}"; }?></td>
-				<td><button type="button" >Dislike</button></td><tr> <?php
+				<td><button type="button" ><img src="dislike.png" style="height:10%;"></button></td><tr> <?php
 
 
 			}while($linha2 = mysqli_fetch_assoc($dados2));
