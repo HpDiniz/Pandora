@@ -169,15 +169,18 @@ nav .a{
 		$sql = mysqli_query($conexao, "UPDATE disciplina SET SomaNotaUtilidade='$util'WHERE Codigo = '$code'");
 
 		if($_POST['recomendacao'] = '1'){
+			$recomendacao=1;
 			$recomend = $linha['RecomendacaoP'] + 1;
 			$sql = mysqli_query($conexao, "UPDATE disciplina SET RecomendacaoP='$recomend'WHERE Codigo = '$code'");
 		}
-		if($_POST['recomendacao'] == '0'){
+		if($_POST['recomendacao2'] == '1'){
+			$recomendacao=0;
 			$recomend = $linha['RecomendacaoN'] + 1;
-			$sql = mysqli_query($conexao, "UPDATE disciplina SET RecomendacaoP='$recomend'WHERE Codigo = '$code'");
+			$sql = mysqli_query($conexao, "UPDATE disciplina SET RecomendacaoN='$recomend'WHERE Codigo = '$code'");
+			
 		}
 
-		$sql = mysqli_query($conexao, "INSERT INTO pessoaavaliadisciplina (Utilidade, Facilidade, Recomenda, Professor, Comentario, ReacoesNegativas, CodigoDisc, IdPessoa) VALUES ('{$_POST['utilidade']}', '{$_POST['facilidade']}', '{$_POST['recomendacao']}', '{$_POST['professor']}', '{$_POST['comentario']}', 0 , '{$code}', '{$idUser}')" ); 
+		$sql = mysqli_query($conexao, "INSERT INTO pessoaavaliadisciplina (Utilidade, Facilidade, Recomenda, Professor, Comentario, ReacoesNegativas, CodigoDisc, IdPessoa) VALUES ('{$_POST['utilidade']}', '{$_POST['facilidade']}', '{$recomendacao}', '{$_POST['professor']}', '{$_POST['comentario']}', 0 , '{$code}', '{$idUser}')" ); 
 
 		$total = $linha['TotalDeAvaliacoes'] + 1;
 		$sql = mysqli_query($conexao, "UPDATE disciplina SET TotalDeAvaliacoes='$total'WHERE Codigo = '$code'");

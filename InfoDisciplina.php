@@ -1,6 +1,8 @@
 <?php
 
 	session_start();
+	if(isset($_SESSION["usuario"]) && isset($_POST['codigo']))
+		$_SESSION["codigoAtual"] = $_POST['codigo'];
 
 	$host = "localhost";
 	$user = "root";
@@ -10,7 +12,6 @@
 	$conexao = mysqli_connect($host, $user, $senha, $banco) or die(mysqli_error());
 
 	mysqli_select_db($conexao, $banco);
-
 	if(isset($_POST['discipl'])){
 
 		$DisciplinaBuscada = $_POST['discipl'];
@@ -30,7 +31,6 @@
 
 	$query = "SELECT `codigo`,`RecomendacaoP`,`RecomendacaoN` FROM `disciplina` WHERE `codigo` = '".$code."' ";
 	$res = mysqli_query($conexao,$query);
-
 
 ?>
 
@@ -138,6 +138,24 @@ nav .a{
 	margin-top:0;
 	
 }
+table,th,td{
+	
+	border:1px solid black;
+	border-collapse: collapse;
+	opacity:0.95;
+	
+	
+}
+td{
+	
+	
+	text-align:center;
+	
+}
+
+
+
+
 
 .w3-sidebar a {font-family: "Roboto", sans-serif}
 	body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif; color: black;}
@@ -222,6 +240,12 @@ $row=$res->fetch_assoc();
 	
 	<?php
 
+		if(!isset($_POST['codigo']))
+			$code = $_SESSION['codigoAtual'];
+		else
+			$code = $_POST['codigo'];
+
+
 		$query = sprintf("SELECT * FROM disciplina WHERE Codigo = '$code'");
 
 		$dados = mysqli_query($conexao, $query) or die(mysql_error());
@@ -232,7 +256,8 @@ $row=$res->fetch_assoc();
 
 
 		if($total < 1){
-			header("Location: index.php");
+			echo "Erro fatal, disciplina não se encontra no banco de dados";
+			header("index.php");
 		}
 
 		?> <center><div class="barra_de_cima" style="background-color:#D9D9D9; margin-top:0%; width:all; height:10%; font-size:2vw;  border:1px solid #404040;""><h2 style="margin:auto;"> <?php
@@ -241,7 +266,7 @@ $row=$res->fetch_assoc();
 			<div class="barraRecomenda"style=" position:absolute; background-color:#FFFFFF; left:10%; width:30%;height:70%; border-radius:15px; border-left:2px solid #404040; border-right:2px solid #404040; border-bottom:2px solid #404040; z-index:4;">
 				<div style="position:relative; font-size: 2vw;; background-color:#D9D9D9; height:10%; border-radius:15px; border:2px solid #404040;"> <center>Recomendações</center></div>
 			
-				<center><div id="piechart" style=" position:relative; width: 70%; height: 60%;"></div></center> <br>
+				<center><div id="piechart" style=" position:relative; width: 60%; height: 60%;"></div></center> <br>
 				<center><div style=" position:relative; ">
 				<form method="post" action="AvaliarDisciplina.php">
 					<input class="w3-bar-item w3-button w3-hide-small  w3-hover-white w3-black" style="" type="submit" value="Avalie esta disciplina!">
@@ -253,45 +278,60 @@ $row=$res->fetch_assoc();
 				
 				
 				</div >
-		<div class="barraEstatisticas"style=" position:absolute;  background-color:#FFFFFF; right:5%; width:50%;height:70%; border-radius:15px; border-left:2px solid #404040; border-right:2px solid #404040; border-bottom:2px solid #404040; z-index:4;">
-				<div style="position:relative; font-size: 2vw;; background-color:#D9D9D9; height:10%; border-radius:15px; border:2px solid #404040;"> <center>Estatísticas Gerais</center></div>
 			
-			<div class="circulo" style="border-radius:100%;border:1px solid #D9D9D9; position:relative; display: inline-block; width:28%; height:40%; background-color:#60B7FA;  margin-top:5%; left:10%; text-align: center; vertical-align: middle;"><center style="margin-top:35%; font-size: 1.5vw;"><?php
+			
+			<?php
 			if($linha['TotalDeAvaliacoes'] != 0){
 				$mediaU = ($linha['SomaNotaUtilidade']/$linha['TotalDeAvaliacoes']);
+				$mediaF = ($linha['SomaNotaFacilidade']/$linha['TotalDeAvaliacoes']);
 				} else{
 				$mediaU = 0;
-				
-			} 
+				$mediaF = 0;
+			}
+			
+			?> 
+			
+		<div class="barraEstatisticas"style=" position:absolute;  background-color:#FFFFFF; right:5%; width:50%;height:auto; min-height:70%;  border-left:2px solid #404040; border-right:2px solid #404040; border-bottom:2px solid #404040; z-index:4;">
+				<div style="position:relative; font-size: 2vw;; background-color:#D9D9D9; height:10%;  border:2px solid #404040;"> <center>Estatísticas Gerais</center></div>
+			
+			<div class="circulo" style="padding:15% 0 ;border-radius:50%;border:1px solid #D9D9D9; position:relative; display: inline-block; width:30%; height:0; background-color:#60B7FA;  margin-top:5%; left:10%; text-align: center; "><?php
+			
 			
 			echo "Nivel de Utilidade: ".number_format($mediaU,2,',','.')."";?><br><?php
-			echo "Avaliações : {$linha['TotalDeAvaliacoes']}";?><br>
+			?><br>
 			
 			
-			</center></div>
+			</div>
 			
 			
-			<div class="circulo2" style="border-radius:100%;border:1px solid #D9D9D9; position:relative; display: inline-block; width:30%; height:42%; margin-top:5%; background-color:#60B7FA;  float:right; right:5%;  text-align: center;"><center style="margin-top:35%; font-size: 1.5vw;"><?php
-			
-				if($linha['TotalDeAvaliacoes'] != 0){
-					$mediaF = ($linha['SomaNotaFacilidade']/$linha['TotalDeAvaliacoes']);
-				} else{
-					$mediaF = 0;
-				} 
-			
-				echo "Nivel de Facilidade: ".number_format($mediaF,2,',','.')."";?><br><?php
-				echo "Avaliações : {$linha['TotalDeAvaliacoes']}";?><br>
-			
-			
-			</center></div>
+			<div class="circulo2" style=" padding:15% 0; border-radius:50%;border:1px solid #D9D9D9; position:relative; display: inline-block; width:30%; height:0; margin-top:5%; background-color:#60B7FA;    float:right; right:10%;  text-align: center;"><?php
 			
 				
-
 			
-		</div>
+				echo "Nivel de Facilidade: ".number_format($mediaF,2,',','.')."";?><br><?php
+				?>
+			
+			
+			</div>
+			
+				<center><br><br><h3>AVALIAÇÕES PASSADAS</h3><br>
 
-					<center><br><br><h3>AVALIAÇÕES PASSADAS</h3><br>
-
+	<table >
+		
+		<tr>
+			
+			<th>Nome</th>
+			<th>Utilidade</th>
+			<th>Facilidade</th>
+			<th>Recomendado?</th>
+			<th>Professor</th>
+			<th>Comentario</th>
+			<th>Dislike</th>
+		</tr>
+		
+		
+		
+	
 <?php 
 
 		$query2 = sprintf("SELECT * FROM pessoaavaliadisciplina WHERE CodigoDisc = '$code'");
@@ -316,13 +356,13 @@ $row=$res->fetch_assoc();
 				//	Avaliacao de: <?php echo "Anonimo";
 				//} 
 
-				?> Avaliacao de: <?php echo $linha3['Nome'];?> <br>
-				Nivel de utilidade: <?php echo $linha2['Utilidade'] ?><br>
-				Nivel de dificuldade: <?php echo $linha2['Facilidade'] ?><br>
-				Disciplina Recomendada? <?php if($linha2['Recomenda'] == 1){ echo "SIM";} else { echo "NAO"; }?> <br> 
-				Disciplina feita com professor: <?php echo "{$linha2['Professor']}";?> <br> 
-				Comentario do aluno: <?php if($linha2['Comentario'] == NULL){ echo "Esse avaliador nao deixou comentarios";} else { echo "{$linha2['Comentario']}"; }?>
-				<button type="button">Dislike</button><br><br> <?php
+				?><tr>  <td><?php echo $linha3['Nome'];?></td>
+				<td> <?php echo $linha2['Utilidade'] ?></td>
+				<td> <?php echo $linha2['Facilidade'] ?></td>
+				<td> <?php if($linha2['Recomenda'] == 1){ echo "SIM";} else { echo "NAO"; }?> </td> 
+				<td> <?php echo "{$linha2['Professor']}";?> </td> 
+				<td> <?php if($linha2['Comentario'] == NULL){ echo "Esse avaliador nao deixou comentarios";} else { echo "{$linha2['Comentario']}"; }?></td>
+				<td><button type="button" >Dislike</button></td><tr> <?php
 
 
 			}while($linha2 = mysqli_fetch_assoc($dados2));
@@ -332,6 +372,11 @@ $row=$res->fetch_assoc();
 		
 
 ?>
+	</table>
+			
+		</div>
+
+					
 
 
 	
