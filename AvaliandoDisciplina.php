@@ -18,8 +18,8 @@
 	?>
 
 
-<DOCTYPE html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html>
 <head>
 	<title></title>
 		<script type="text/javascript">
@@ -163,7 +163,7 @@ nav .a{
 		$sql = mysqli_query($conexao, "UPDATE disciplina SET SomaNotaFacilidade='$facil'WHERE Codigo = '$code'");
 
 
-		$util = ($linha['SomaNotaUtilidade'] + $_POST['facilidade']);
+		$util = ($linha['SomaNotaUtilidade'] + $_POST['utilidade']);
 
 
 		$sql = mysqli_query($conexao, "UPDATE disciplina SET SomaNotaUtilidade='$util'WHERE Codigo = '$code'");
