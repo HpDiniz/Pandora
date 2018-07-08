@@ -1,8 +1,6 @@
 <?php
 
 	session_start();
-	if(isset($_SESSION["usuario"]) && isset($_POST['codigo']))
-		$_SESSION["codigoAtual"] = $_POST['codigo'];
 
 	$host = "localhost";
 	$user = "root";
@@ -12,6 +10,27 @@
 	$conexao = mysqli_connect($host, $user, $senha, $banco) or die(mysqli_error());
 
 	mysqli_select_db($conexao, $banco);
+
+	if(isset($_POST['discipl'])){
+
+		$DisciplinaBuscada = $_POST['discipl'];
+
+		$code = strstr($DisciplinaBuscada, ' ', true);
+
+		$_SESSION['codigoAtual'] = $code;
+	}
+	else{
+		if(isset($_SESSION['codigoAtual'])){
+			$code = $_SESSION['codigoAtual'];
+		}
+		else{
+			header("Location: index.php");
+		}
+	}
+
+	$query = "SELECT `codigo`,`RecomendacaoP`,`RecomendacaoN` FROM `disciplina` WHERE `codigo` = '".$code."' ";
+	$res = mysqli_query($conexao,$query);
+
 
 ?>
 
@@ -129,17 +148,54 @@ nav .a{
 
 </style>
 
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+		 var data = google.visualization.arrayToDataTable([
+          ['RecomendacaoP','Recomendacao'],
+		 
+		  
+		  
+		  
+		  
+		   <?php 
+$row=$res->fetch_assoc();
+
+    echo "['positivo',".$row['RecomendacaoP']."],";
+	echo "['negativo',".$row['RecomendacaoN']."],";
+
+
+		  
+		   ?>
+
+        ]);
+
+        var options = {
+          legend:{position:'none'},
+          is3D:true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
 </head>
 
-<body>
+<body style="background-color: #946b4a;">
 
-	<img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img>
+	
 
-<div style="width:all;height:285px;border:1px solid #000; background-color:#946b4a;z-index:150;">
 	<input type="checkbox" id="check">
 	<label id="icone" for="check"><img src="imagemMenu.png"></label>
 
-	<div class="barra">
+	<div class="barra" style="z-index:150;">
 
 		<nav>
 
@@ -162,19 +218,9 @@ nav .a{
 		</nav>
 
 	</div>
-	<a href="index.php"> <img src="logo.png"  style=" width:600px; height:300px; position:absolute; left:30%;"> </img> </a>
 
-</div>
-
-
-
+	
 	<?php
-
-		if(!isset($_POST['codigo']))
-			$code = $_SESSION['codigoAtual'];
-		else
-			$code = $_POST['codigo'];
-
 
 		$query = sprintf("SELECT * FROM disciplina WHERE Codigo = '$code'");
 
@@ -186,38 +232,65 @@ nav .a{
 
 
 		if($total < 1){
-			echo "Erro fatal, disciplina não se encontra no banco de dados";
-			header("index.php");
+			header("Location: index.php");
 		}
 
-		?> <center><h2> <?php
-			echo "INFORMACOES DE {$code}:";?><br></h2><h4><br><?php 
-
-			if($linha['RecomendacaoP'] >= $linha['RecomendacaoN'])
-				echo "A maioria dos usuarios recomendaram essa disciplina";
-			else
-				echo "A maioria dos usuarios não recomendaram essa disciplina";?><br><?php 
-
+		?> <center><div class="barra_de_cima" style="background-color:#D9D9D9; margin-top:0%; width:all; height:10%; font-size:2vw;  border:1px solid #404040;""><h2 style="margin:auto;"> <?php
+			echo "INFORMACOES DE {$code}:";?></h2></div> </center><h4><br>
+			
+			<div class="barraRecomenda"style=" position:absolute; background-color:#FFFFFF; left:10%; width:30%;height:70%; border-radius:15px; border-left:2px solid #404040; border-right:2px solid #404040; border-bottom:2px solid #404040; z-index:4;">
+				<div style="position:relative; font-size: 2vw;; background-color:#D9D9D9; height:10%; border-radius:15px; border:2px solid #404040;"> <center>Recomendações</center></div>
+			
+				<center><div id="piechart" style=" position:relative; width: 70%; height: 60%;"></div></center> <br>
+				<center><div style=" position:relative; ">
+				<form method="post" action="AvaliarDisciplina.php">
+					<input class="w3-bar-item w3-button w3-hide-small  w3-hover-white w3-black" style="" type="submit" value="Avalie esta disciplina!">
+					<input type="hidden" name="codigo" value="<?php echo $linha['Codigo']?>">
+					</form></div></center>
+				
+				
+				
+				
+				
+				</div >
+		<div class="barraEstatisticas"style=" position:absolute;  background-color:#FFFFFF; right:5%; width:50%;height:70%; border-radius:15px; border-left:2px solid #404040; border-right:2px solid #404040; border-bottom:2px solid #404040; z-index:4;">
+				<div style="position:relative; font-size: 2vw;; background-color:#D9D9D9; height:10%; border-radius:15px; border:2px solid #404040;"> <center>Estatísticas Gerais</center></div>
+			
+			<div class="circulo" style="border-radius:100%;border:1px solid #D9D9D9; position:relative; display: inline-block; width:28%; height:40%; background-color:#60B7FA;  margin-top:5%; left:10%; text-align: center; vertical-align: middle;"><center style="margin-top:35%; font-size: 1.5vw;"><?php
 			if($linha['TotalDeAvaliacoes'] != 0){
 				$mediaU = ($linha['SomaNotaUtilidade']/$linha['TotalDeAvaliacoes']);
-				$mediaF = ($linha['SomaNotaFacilidade']/$linha['TotalDeAvaliacoes']);
-			} else{
+				} else{
 				$mediaU = 0;
-				$mediaF = 0;
+				
 			} 
 			
-			echo "Nivel de Utilidade: {$mediaU}"; ?><br><?php 
-			echo "Nivel de Facilidade: {$mediaF}"; ?><br><?php 
-			echo "Foi avaliada: {$linha['TotalDeAvaliacoes']} vezes"; ?><br></h4></center><?php 
+			echo "Nivel de Utilidade: ".number_format($mediaU,2,',','.')."";?><br><?php
+			echo "Avaliações : {$linha['TotalDeAvaliacoes']}";?><br>
+			
+			
+			</center></div>
+			
+			
+			<div class="circulo2" style="border-radius:100%;border:1px solid #D9D9D9; position:relative; display: inline-block; width:30%; height:42%; margin-top:5%; background-color:#60B7FA;  float:right; right:5%;  text-align: center;"><center style="margin-top:35%; font-size: 1.5vw;"><?php
+			
+				if($linha['TotalDeAvaliacoes'] != 0){
+					$mediaF = ($linha['SomaNotaFacilidade']/$linha['TotalDeAvaliacoes']);
+				} else{
+					$mediaF = 0;
+				} 
+			
+				echo "Nivel de Facilidade: ".number_format($mediaF,2,',','.')."";?><br><?php
+				echo "Avaliações : {$linha['TotalDeAvaliacoes']}";?><br>
+			
+			
+			</center></div>
+			
+				
 
-	?>
+			
+		</div>
 
-					<form method="post" action="AvaliarDisciplina.php">
-					<input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" style="width:200px;" type="submit" value="Avalie esta disciplina!">
-					<input type="hidden" name="codigo" value="<?php echo $linha['Codigo']?>">
-					</form>
-
-					<center><br><br><h3>AVALIAÇÕES PASSADAS</h3><br></center>
+					<center><br><br><h3>AVALIAÇÕES PASSADAS</h3><br>
 
 <?php 
 
@@ -259,6 +332,13 @@ nav .a{
 		
 
 ?>
+
+
+	
+
+
+
+
 
 </body>
 

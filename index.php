@@ -122,12 +122,12 @@
         <div class="row">
             <div class="col-sm-12">
 
-            <form method="post" action="PesquisaDisciplina.php" >
+            <form method="post" action="InfoDisciplina.php" >
                 <input class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white w3-black" style=" position:absolute; right:200px;" type="submit" name="pesquisa" value="Pesquisar"/>
                 <input class="w3-input w3-right w3-border" style=" position:absolute; right:300px; width:800px;" type="text" placeholder="Pesquisar Disciplina" required type ="text" list="datalist1"  name="discipl"/>
                 <datalist id="datalist1">
                     <?php while($row1 = mysqli_fetch_array($result1) ) :; ?>
-                    <option value="<?php echo $row1[1]; ?>"> 
+                    <option value="<?php echo "{$row1[0]} - {$row1[1]}"; ?>"> 
                     <?php endwhile; ?>
 
 
