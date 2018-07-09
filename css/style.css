@@ -74,8 +74,14 @@ nav .a{
     margin-top:3%;    
     margin-left:90%;
 }
-
-
+.text-login{
+    color: black;
+    font-size: 30px;
+    line-height: 20px;
+}
+.img-login{
+    width: 300px;
+}
 
 
 
