@@ -191,7 +191,7 @@ $row=$res->fetch_assoc();
 			
 				<center><br><br><h3>AVALIAÇÕES PASSADAS</h3><br>
 
-	<table >
+	<table style= "border-collapse:collapse;">
 		
 		<tr>
 			
@@ -237,7 +237,7 @@ $row=$res->fetch_assoc();
 				<td> <?php if($linha2['Recomenda'] == 1){ echo "SIM";} else { echo "NAO"; }?> </td> 
 				<td> <?php echo "{$linha2['Professor']}";?> </td> 
 				<td> <?php if($linha2['Comentario'] == NULL){ echo "Esse avaliador nao deixou comentarios";} else { echo "{$linha2['Comentario']}"; }?></td>
-				<td><button type="button" ><img src="dislike.png" style="height:10%;"></button></td><tr> <?php
+				<td><button type="button"  style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;"><img src="dislike.png" style="height:10%;"></button></td><tr> <?php
 
 
 			}while($linha2 = mysqli_fetch_assoc($dados2));
