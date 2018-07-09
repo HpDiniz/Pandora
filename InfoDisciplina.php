@@ -232,12 +232,12 @@ $row=$res->fetch_assoc();
 				//} 
 
 				?><tr>  <td><?php echo $linha3['Nome'];?></td>
-				<td> <?php echo $linha2['Utilidade'] ?></td>
-				<td> <?php echo $linha2['Facilidade'] ?></td>
-				<td> <?php if($linha2['Recomenda'] == 1){ echo "SIM";} else { echo "NAO"; }?> </td> 
+				<td><center> <?php echo $linha2['Utilidade'] ?> </center></td>
+				<td><center> <?php echo $linha2['Facilidade'] ?> </center></td>
+				<td><center> <?php if($linha2['Recomenda'] == 1){ echo "SIM";} else { echo "NAO"; }?> </center></td> 
 				<td> <?php echo "{$linha2['Professor']}";?> </td> 
-				<td> <?php if($linha2['Comentario'] == NULL){ echo "Esse avaliador nao deixou comentarios";} else { echo "{$linha2['Comentario']}"; }?></td>
-				<td><button type="button"  style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;"><img src="dislike.png" style="height:10%;"></button></td><tr> <?php
+				<td> <?php if($linha2['Comentario'] == NULL){ ?><i><?php echo "Esse avaliador nao deixou comentarios"; ?></i><?php } else { echo "{$linha2['Comentario']}"; }?></td>
+				<td><center><button type="button"  style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;"><img src="dislike2.png"></button></center></td><tr> <?php
 
 
 			}while($linha2 = mysqli_fetch_assoc($dados2));

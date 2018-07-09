@@ -278,8 +278,8 @@ nav .a{
 					</div></center>
 
 					<center><p> Voce recomenda essa disciplina? 
-					<input type="radio" name="recomendacao" value="1"/> Sim
-					<input type="radio" name="recomendacao2" value="1"/> Nao </p></center>
+					<input type="radio" name="recomendacao" value="0" checked /> Sim
+					<input type="radio" name="recomendacao" value="1"/> Nao </p></center>
 
 					<center><p> Fez a disciplina com qual professor?
 

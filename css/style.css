@@ -111,6 +111,7 @@ nav .a{
 	
 }
 .botao1 {
+	cursor: pointer;
     background-color: #999999;
     border: solid;
     border-color: #CCCCCC;

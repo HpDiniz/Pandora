@@ -68,13 +68,13 @@
 
 		$sql = mysqli_query($conexao, "UPDATE disciplina SET SomaNotaUtilidade='$util'WHERE Codigo = '$code'");
 
-		if($_POST['recomendacao'] = '1'){
-			$recomendacao=1;
+		if($_POST['recomendacao'] == '0'){
+			$recomendacao = 1;
 			$recomend = $linha['RecomendacaoP'] + 1;
 			$sql = mysqli_query($conexao, "UPDATE disciplina SET RecomendacaoP='$recomend'WHERE Codigo = '$code'");
 		}
-		if($_POST['recomendacao2'] == '1'){
-			$recomendacao=0;
+		if($_POST['recomendacao'] == '1'){
+			$recomendacao = 0;
 			$recomend = $linha['RecomendacaoN'] + 1;
 			$sql = mysqli_query($conexao, "UPDATE disciplina SET RecomendacaoN='$recomend'WHERE Codigo = '$code'");
 			
